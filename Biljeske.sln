@@ -1,25 +1,66 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.11.35327.3
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Biljeske", "Biljeske.csproj", "{29B9E663-79C0-4AA6-90F1-6250DC25D891}"
-EndProject
-Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{29B9E663-79C0-4AA6-90F1-6250DC25D891}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{29B9E663-79C0-4AA6-90F1-6250DC25D891}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{29B9E663-79C0-4AA6-90F1-6250DC25D891}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{29B9E663-79C0-4AA6-90F1-6250DC25D891}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {80B8DF39-6B4D-46F5-8C36-9F4787249B75}
-	EndGlobalSection
-EndGlobal
+using System;
+using System.Collections.Generic;
+
+namespace BiljeskeAppNamespace
+{
+    public class BiljeskeApp
+    {
+        private List<string> biljeske = new List<string>();
+
+        public void DodajBiljesku()
+        {
+            Console.Write("Unesite tekst bilješke: ");
+            biljeske.Add(Console.ReadLine());
+            Console.WriteLine("Bilješka je dodana.");
+        }
+
+        public void PrikaziBiljeske()
+        {
+            if (biljeske.Count == 0)
+            {
+                Console.WriteLine("Nema dodanih bilješki.");
+                return;
+            }
+            Console.WriteLine("------ Vaše bilješke ------");
+            for (int i = 0; i < biljeske.Count; i++)
+                Console.WriteLine($"{i + 1}. {biljeske[i]}");
+        }
+
+        public void Run()
+        {
+            bool izlaz = false;
+            while (!izlaz)
+            {
+                Console.WriteLine("------ Bilješke ------");
+                Console.WriteLine("1. Dodaj bilješku");
+                Console.WriteLine("2. Prikaži bilješke");
+                Console.WriteLine("3. Izlaz");
+                Console.Write("Odaberite opciju: ");
+                string opcija = Console.ReadLine();
+                Console.WriteLine();
+
+                if (opcija == "1")
+                    DodajBiljesku();
+                else if (opcija == "2")
+                    PrikaziBiljeske();
+                else if (opcija == "3")
+                {
+                    izlaz = true;
+                    Console.WriteLine("Izlazak iz aplikacije...");
+                }
+                else
+                    Console.WriteLine("Nepoznata opcija. Pokušajte ponovno.");
+
+                Console.WriteLine();
+            }
+        }
+    }
+
+    class Program
+    {
+        static void Main()
+        {
+            new BiljeskeApp().Run();
+        }
+    }
+}
